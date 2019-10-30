@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+
+cd "~/.dotfiles";
+
+function doIt() {
+	rsync --exclude ".git/" \
+		--exclude ".DS_Store" \
+		--exclude ".osx" \
+		--exclude "bootstrap.sh" \
+		--exclude "README.md" \
+		--exclude "LICENSE-MIT.txt" \
+		--exclude "script" \
+		-avh --no-perms . ~;
+	source ~/.bash_profile;
+}
+
+doIt;
+unset doIt;
+
+echo "Installing dockutil ..."
+brew install dockutil
+
+# run os x deaults script
+source ~/.macos
+
+# dock management
+dockutil --remove all --no-restart
+dockutil --add /Applications/Launchpad.app --no-restart
+dockutil --add /Applications/Firefox.app --no-restart
+dockutil --add /Applications/Mail.app --no-restart
+dockutil --add /Applications/Calendar.app --no-restart
+dockutil --add /Applications/Messages.app --no-restart
+dockutil --add /Applications/Atom.app --no-restart
+dockutil --add /Applications/Virtualbox.app --no-restart
+dockutil --add /Applications/iTunes.app --no-restart
+dockutil --add /Applications/Utilities/Terminal.app --no-restart
+dockutil --add /Applications/App\ Store.app --no-restart
+dockutil --add /Applications/System\ Preferences.app
